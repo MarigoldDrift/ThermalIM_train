@@ -84,7 +84,7 @@ if __name__ == "__main__":
     except:
         pass
     
-    with open(r'D:/Textbooks and Notes(2)/Masters/Alphapose/Img0510/0428COCO.json') as ff:
+    with open(r'COCO_sample.json') as ff:
         json_file = json.load(ff)
         json_file['annotations'] = []
         json_file['images'] = []
