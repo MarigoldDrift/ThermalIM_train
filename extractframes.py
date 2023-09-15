@@ -2,8 +2,7 @@ import cv2
 import os
 import numpy as np
 import json 
-import copy
-import glob
+from datetime import date
 
 root_dir = os.getcwd()
 def save_frames_and_keypoints(vid_path,cap,outpath,total_frames):
@@ -12,8 +11,8 @@ def save_frames_and_keypoints(vid_path,cap,outpath,total_frames):
     coco_kp = openpose_to_coco(openpose_kp)
     frame_count = 0
     print(coco_kp.shape)
-    coco_kp[:,:,0] *= 512/384
-    coco_kp[:,:,1] *= 512/288
+    coco_kp[:,:,0] *= 512/1920
+    coco_kp[:,:,1] *= 512/1080
     frame_kpt = []
     while cap.isOpened():
         ret, frame = cap.read()
@@ -97,7 +96,7 @@ if __name__ == "__main__":
             
             total_frames = save_frames_and_keypoints(video_name,cap,output_dir,total_frames)
 
-    output_json_name = root_dir + '0914.json'
+    output_json_name = root_dir + str(date.today()) + '.json'
     with open(output_json_name,'w+') as outf:
         key = json.dumps(json_file)
         outf.write(str(key))
