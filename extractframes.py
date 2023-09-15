@@ -5,7 +5,7 @@ import json
 import copy
 import glob
 
-root_dir = r'C:/Users/chenj/Downloads/Thermal_IM/'
+root_dir = os.getcwd()
 def save_frames_and_keypoints(vid_path,cap,outpath,total_frames):
     vid_name = os.path.split(vid_path)[1]
     openpose_kp = np.load(npz_name)['pose_2d']
