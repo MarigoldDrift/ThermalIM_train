@@ -104,15 +104,3 @@ if __name__ == "__main__":
 
 
 
-# entry1 = os.listdir(r'D:/Textbooks and Notes(2)/Masters/Alphapose/0603/0603')
-# with open(r'D:/Textbooks and Notes(2)/Masters/Alphapose/Img0510/0428COCO.json') as ff:
-#     data1 = json.load(ff)
-#     cat = data1['categories']
-#     img = data1['images'][0]
-#     data1['images'] = data1['images']*3
-# def changeimg(filename, idx):
-#     outimg = copy.deepcopy(img)
-#     outimg['file_name'] = filename
-#     outimg['id'] = idx
-#     #outimg['coco_url'] = ''
-#     return outimg    
