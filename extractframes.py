@@ -2,9 +2,12 @@ import cv2
 import os
 import numpy as np
 import json 
+import copy
+import glob
 from datetime import date
 
-root_dir = os.getcwd()
+#root_dir = r'C:/Users/chenj/Downloads/Thermal_IM/'
+root_dir = os.getcwd()+'/'
 def save_frames_and_keypoints(vid_path,cap,outpath,total_frames):
     vid_name = os.path.split(vid_path)[1]
     openpose_kp = np.load(npz_name)['pose_2d']
@@ -55,11 +58,12 @@ def add_kpts_coco_annot(kpts, img_name):
     anno_new_entry['keypoints'] = kpts
     anno_new_entry['image_name'] = img_name
     anno_new_entry['image_id'] = int(img_name[:-4])
+    anno_new_entry['id'] = int(img_name[:-4])
     
-    bbox_x = min(kpts[::3])-15
-    bbox_y = min(kpts[1::3])-15
-    bbox_width = max(kpts[::3])-min(kpts[::3])+30
-    bbox_height = max(kpts[1::3])-min(kpts[1::3])+30
+    bbox_x = min(kpts[::3])-30
+    bbox_y = min(kpts[1::3])-50
+    bbox_width = max(kpts[::3])-min(kpts[::3])+60
+    bbox_height = max(kpts[1::3])-min(kpts[1::3])+100
     anno_new_entry['bbox'] = [bbox_x,bbox_y,bbox_width,bbox_height]
     
     
@@ -69,7 +73,7 @@ def add_kpts_coco_annot(kpts, img_name):
     
     img_new_entry['coco_url'] = 'http://images.cocodataset.org/train2017/' + img_name
     img_new_entry['file_name'] = img_name
-    img_new_entry['id'] = int(img_name[:-4])*10
+    img_new_entry['id'] = int(img_name[:-4])
     json_file['images'].append(img_new_entry)
     
 
@@ -83,12 +87,12 @@ if __name__ == "__main__":
     except:
         pass
     
-    with open(r'COCO_sample.json') as ff:
+    with open('COCO_sample.json') as ff:
         json_file = json.load(ff)
         json_file['annotations'] = []
         json_file['images'] = []
         total_frames = 0
-        for folder in folderlist:
+        for folder in folderlist[:20]:
             video_name = root_dir+'videos/'+folder+'/RGBT_T.mp4'
             npz_name =  root_dir+'videos/'+folder+'/info.npz'
             cap = cv2.VideoCapture(video_name)
